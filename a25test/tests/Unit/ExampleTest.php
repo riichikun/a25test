@@ -2,15 +2,40 @@
 
 namespace Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
+
 
 class ExampleTest extends TestCase
 {
-    /**
-     * A basic test example.
-     */
-    public function test_that_true_is_true(): void
+   
+    public function test_api_add_employee(): void
     {
-        $this->assertTrue(true);
+        $this->postJson('api/employees', [
+            'email' => '1111@example.com',
+            'password' => '1234'
+        ])->assertOk()->dump();
+    }
+
+    public function test_api_add_transaction(): void
+    {
+        $this->postJson('api/transactions', [
+            'employee_id' => 1,
+            'hours' => 1
+        ])->assertOk()->dump();
+    }
+ 
+    public function test_api_show_transaction(): void
+    {
+        $this->json('GET', 'api/transactions', [
+            'employee_id' => 1
+        ])->assertOk()->dump();
+    }
+
+   
+    public function test_api_delete_transaction(): void
+    {
+        $this->json('DELETE', 'api/transactions', [
+            'employee_id' => 1
+        ])->assertOk()->dump();
     }
 }

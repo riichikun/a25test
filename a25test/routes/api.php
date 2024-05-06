@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('employees', [EmployeeController::class, 'store']);
+
+Route::post('transactions', [TransactionController::class, 'store']);
+Route::get('transactions', [TransactionController::class, 'show']);
+Route::delete('transactions', [TransactionController::class, 'delete']);
